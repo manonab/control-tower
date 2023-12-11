@@ -4,8 +4,16 @@ export default {
     theme: {
         extend: {
             colors: {
-                mainColor: "#FCF6EF",
+                mainColor: "#e9ecef",
                 royalBlue: "#0071F3",
+                lightGray: "#FAFAFA",
+                disabled: "#E5E7EB",
+                lightBlue: "#caf0f8",
+                validated: "#009000",
+                lightGreen: "#99e2b4",
+            },
+            fontFamily: {
+                body: ["Montserrat"],
             },
         },
     },

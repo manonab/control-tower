@@ -1,4 +1,5 @@
 import type { LinksFunction } from "@remix-run/node";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import {
   Links,
   LiveReload,
@@ -7,11 +8,21 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { json } from "@remix-run/node";
 import stylesheet from "~/tailwind.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
+const queryClient = new QueryClient();
+
+export async function loader() {
+  return json({
+    ENV: {
+      APP_ENV: process.env.APP_ENV,
+    },
+  });
+}
 
 export default function App() {
   return (
@@ -27,10 +38,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <QueryClientProvider client={queryClient}>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </QueryClientProvider>
       </body>
     </html>
   );
