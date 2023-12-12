@@ -4,15 +4,15 @@
 Bienvenue dans le rapport de mission pour le Contrôle Technique Control Tower ! Dans cette mission, j'ai été chargé de développer une interface de détail de projet conforme à la maquette fournie.
 
 ##titre Exploits Réalisés
-* Statut et Modèle de Risque
-* Implémentation d'un dropdown dynamique pour modifier le statut du projet et le modèle de risque.
-* Mise en place de règles intelligentes : le modèle de risque n'est modifiable que s'il n'y a aucune évaluation créée.
-* Évaluations Validées
-* Affichage des évaluations reliées au projet dans un tableau.
-* Création simplifiée d'une nouvelle évaluation avec un bouton dédié, respectant les propriétés spécifiées (date de création, date de validation, nom de l'évaluation).
-* Endpoints et Superpuissances Techniques
-* Utilisation des endpoints fournis.
-* Utilisation de Remix pour construire une application web robuste et réactive et de wiremock afin de construire une API mocked.
+- Statut et Modèle de Risque
+- Implémentation d'un dropdown dynamique pour modifier le statut du projet et le modèle de risque.
+- Mise en place de règles intelligentes : le modèle de risque n'est modifiable que s'il n'y a aucune évaluation créée.
+- Évaluations Validées
+- Affichage des évaluations reliées au projet dans un tableau.
+- Création simplifiée d'une nouvelle évaluation avec un bouton dédié, respectant les propriétés spécifiées (date de création, date de validation, nom de l'évaluation).
+- Endpoints et Superpuissances Techniques
+- Utilisation des endpoints fournis.
+- Utilisation de Remix pour construire une application web robuste et réactive et de wiremock afin de construire une API mocked.
 
 ##titrePourquoi Remix ?
 
@@ -38,9 +38,9 @@ Copy code
 Visitez http://localhost:3000 dans votre navigateur.
 
 ##titreProchaines Étapes
-*Storybook - Récit d'Exploration
-*Développement de l'interface de composants avec Storybook pour une visualisation et une documentation simplifiée.
-*Tests - Épreuves de Résistance
-*Ajout de tests pour garantir la stabilité et la qualité du code.
-*API Réelle - Passage dans le Monde Réel
-*Intégration avec la vraie API pour tester l'application dans un environnement réel.
+-Storybook - Récit d'Exploration
+-Développement de l'interface de composants avec Storybook pour une visualisation et une documentation simplifiée.
+-Tests - Épreuves de Résistance
+-Ajout de tests pour garantir la stabilité et la qualité du code.
+-API Réelle - Passage dans le Monde Réel
+-Intégration avec la vraie API pour tester l'application dans un environnement réel.
