@@ -1,55 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import type { GroupBase } from "react-select";
 import Select from "react-select";
 import type { Project } from "~/model/project";
+import type { Option } from "~/utils/content";
+import { translateRiskModelId, translateStatus } from "~/utils/content";
 
 interface Dropdown {
   isTag?: boolean;
   options: Option[] | string[];
   isClickable?: boolean;
   project: Project;
-  onChange: () => void
+  onChange: (selectedOption: Option | null) => void;
 }
 
-interface Option {
-  label: string;
-  value: string;
-}
+export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, options, isTag, onChange }: Dropdown) => {
+  const [selectedValue, setSelectedValue] = useState<Option | null>(null);
 
-const translateStatus = (status: string): string => {
-  const translations: Record<string, string> = {
-    in_progress: "En cours",
-    scoping: "En cadrage",
-    completed: "Terminé",
+  const handleDropdownChange = (selectedOption: Option | null) => {
+    setSelectedValue(selectedOption);
+    onChange(selectedOption);
   };
 
-  return translations[status] || status;
-};
-
-export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, options, isTag }: Dropdown) => {
   if (isTag) {
     const tagOptions = (options as string[]).map((option: string) => ({
       label: translateStatus(option),
       value: option,
     }));
-    const defaultValue = { label: translateStatus("in_progress"), value: "in_progress" };
     const formattedOptions: GroupBase<Option>[] = [{ options: tagOptions }];
 
     return (
       <Select
         isDisabled={!isClickable}
-        defaultValue={project?.status ? { label: translateStatus(project.status), value: project.status } : defaultValue}
+        defaultValue={project?.status && { label: translateStatus(project.status), value: project.status }}
+        value={selectedValue}
         className={`rounded-sm w-[150px] ${!isClickable ? "text-disabled cursor-not-allowed" : "cursor-pointer"} text-xs`}
         options={formattedOptions}
+        onChange={(selectedOption) => handleDropdownChange(selectedOption)}
       />
     );
   }
   return (
     <Select
       isDisabled={!isClickable}
-      defaultValue={project?.status ? { value: project.risk_model_id } : null}
-      className={`rounded-sm ${!isClickable ? "text-disabled cursor-not-allowed" : "cursor-pointer"} text-xs my-custom-select w-[150px]`}
+      value={selectedValue}
+      defaultValue={project?.risk_model_id && { label: translateRiskModelId(project.risk_model_id), value: project.risk_model_id }}
+      className={`rounded-sm cursor-pointer text-xs my-custom-select w-[150px]`}
       options={options as Option[]}
+      onChange={(selectedOption) => handleDropdownChange(selectedOption)}
     />
   );
 };

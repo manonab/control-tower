@@ -1,18 +1,25 @@
-import { Button } from "~/common/button";
-import { CustomDropDown } from "~/common/custom-dropdown";
-import { useGetProjects } from "~/hooks/api/use-get-project";
+import React from 'react';
 import { statusOptions } from "~/model/project";
+import type { Project } from "~/model/project";
 import { modelJson } from "~/utils/content";
+import type { Option } from "~/utils/content";
 import dayjs from "dayjs";
 import { ArrowForward } from '@mui/icons-material';
-import { useGetEvaluations } from "~/hooks/api/evaluations";
+import { CustomDropDown } from '~/common/custom-dropdown';
+import { Button } from '~/common/button';
+import { useGetEvaluations } from '~/hooks/api/use-evaluations';
+import { useUpdateProject } from '~/hooks/api/use-project';
 
-export const DetailsProject: React.FC = () => {
-  const { data: project, isLoading, error } = useGetProjects(1);
-  const { data: evaluations } = useGetEvaluations(1);
+interface ProjectProps {
+  project: Project;
+  isLoading: boolean;
+  error: string;
+}
+export const DetailsProject: React.FC<ProjectProps> = ({ project, isLoading, error }: ProjectProps) => {
+  const { data: evaluations } = useGetEvaluations();
+  const { updateProject } = useUpdateProject();
 
   const riskModels = modelJson || [];
-
 
   if (isLoading) {
     return <p>Chargement en cours...</p>;
@@ -21,6 +28,15 @@ export const DetailsProject: React.FC = () => {
   if (error) {
     return <p>Erreur lors du chargement des données du projet</p>;
   }
+  const handleStatusChange = (selectedOption: Option | null) => {
+    const newStatus = selectedOption ? selectedOption.value : "";
+    updateProject(project.id, { status: newStatus, risk_model_id: project.risk_model_id || "" });
+  };
+
+  const handleModelChange = (selectedOption: Option | null) => {
+    const newModelId = selectedOption ? selectedOption.value : "";
+    updateProject(project.id, { risk_model_id: newModelId, status: project.status || "" });
+  };
 
   return (
     <div className="flex-col flex gap-6 min-w-[350px] bg-white border border-lightGray shadow-lg rounded-lg rounded p-5 max-h-[350px]">
@@ -33,6 +49,7 @@ export const DetailsProject: React.FC = () => {
       <div className="flex md:gap-[100px] gap-[160px] items-center justify-center md:justify-start">
         <p className="font-base">Statut</p>
         <CustomDropDown
+          onChange={handleStatusChange}
           project={project}
           options={statusOptions}
           isClickable isTag />
@@ -40,8 +57,9 @@ export const DetailsProject: React.FC = () => {
       <div className="flex md:gap-3 gap-[75px] items-center justify-center md:justify-start">
         <p className="font-base">Modèle de risque</p>
         <CustomDropDown
+          onChange={handleModelChange}
           project={project}
-          isClickable={!project?.risk_model_id && evaluations && evaluations?.length === 0}
+          isClickable={!project?.risk_model_id || project?.status === "in_progress"}
           options={riskModels.map((model) => ({ label: model.name, value: model.id.toString() }))} />
       </div>
       <div className="flex md:gap-20 gap-32 items-center justify-center md:justify-start">
@@ -54,7 +72,7 @@ export const DetailsProject: React.FC = () => {
       </div>
       <Button
         title="Nouvelle évaluation"
-        isClickable={!project?.risk_model_id && evaluations && evaluations.length === 0}
+        isClickable={!evaluations || evaluations.length > 0 || project?.risk_model_id === null}
       />
     </div>
   )

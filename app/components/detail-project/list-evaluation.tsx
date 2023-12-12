@@ -1,16 +1,20 @@
 import type { Evaluation } from "~/model/project";
 import { UnfoldMore, Check } from '@mui/icons-material';
-import { useGetEvaluations } from "~/hooks/api/evaluations";
+import { useGetEvaluations } from "~/hooks/api/use-evaluations";
 
 export const ListEvaluation: React.FC = () => {
-  const { data: evaluations, isError, isLoading } = useGetEvaluations(1);
+  const { data: evaluations, isLoading, error } = useGetEvaluations();
+
+  if (isLoading) {
+    return <p>Chargement en cours...</p>;
+  }
+
+  if (error) {
+    return <p>Erreur lors du chargement des évaluations</p>;
+  }
 
   return (
     <>
-      {isLoading && <p>Chargement des évaluations en cours...</p>}
-      {isError && <p>Erreur au chargement des évaluations</p>}
-
-      {evaluations && evaluations.length > 0 ? (
         <div className="flex-col gap-4 flex">
           <p className="text-base font-medium text-validated items-center">Evaluations validées <Check /></p>
           <table className="table table-striped shadow-lg bg-lightGray">
@@ -31,7 +35,7 @@ export const ListEvaluation: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {evaluations.map((evaluation: Evaluation, index: number) => (
+            {evaluations.evaluations.map((evaluation: Evaluation, index: number) => (
                 <tr key={index} className="border-b text-sm w-full">
                   <td className="p-2 w-1/3 text-center">{evaluation.name}</td>
                   <td className="p-2 w-1/3 text-center">{evaluation.creation_date}</td>
@@ -40,8 +44,7 @@ export const ListEvaluation: React.FC = () => {
               ))}
             </tbody>
           </table>
-        </div>
-      ) : <p>Pas d'évaluation pour le moment</p>}
+      </div>
     </>
   );
 };

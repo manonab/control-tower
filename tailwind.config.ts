@@ -9,8 +9,9 @@ export default {
                 lightGray: "#FAFAFA",
                 disabled: "#E5E7EB",
                 lightBlue: "#caf0f8",
+                lightGreen: "#52b69a",
                 validated: "#009000",
-                lightGreen: "#99e2b4",
+                darkBlue: "#003566",
             },
             fontFamily: {
                 body: ["Montserrat"],

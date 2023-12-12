@@ -19,6 +19,7 @@ const ProjectSchema = z.object({
     domainId: z.number(),
     programId: z.number().nullable(),
 });
+
 const getStatusOptions = () => {
     return ProjectSchema.shape.status._def.values;
 };

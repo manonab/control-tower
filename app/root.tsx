@@ -10,6 +10,7 @@ import {
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import stylesheet from "~/tailwind.css";
+import { Layout } from "./components/layout";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -39,12 +40,14 @@ export default function App() {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
+          <Layout>
+            <Outlet />
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </Layout>
         </QueryClientProvider>
       </body>
-    </html>
+    </html >
   );
 }

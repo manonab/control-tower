@@ -1,4 +1,4 @@
-import { useGetProjects } from '~/hooks/api/use-get-project';
+import { useGetProjects } from '~/hooks/api/use-project';
 
 export const DescriptionProjet = () => {
   const { data: project, isLoading, error } = useGetProjects(1);

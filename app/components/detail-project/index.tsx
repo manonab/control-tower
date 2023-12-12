@@ -1,4 +1,4 @@
-import { useGetProjects } from "~/hooks/api/use-get-project";
+import { useGetProjects } from "~/hooks/api/use-project";
 import { DetailsProject } from "./details-project"
 import { DescriptionProjet } from "./description-project"
 import { ListEvaluation } from "./list-evaluation"
@@ -17,14 +17,14 @@ export const DetailProject: React.FC = () => {
     <div className="container flex-col flex gap-6 md:pb-10 md:my-20 mx-auto">
       <p className="md:text-[50px] text-[30px] text-center md:text-left font-black uppercase">{project?.name}</p>
       <div className="hidden md:flex gap-12">
-        <DetailsProject />
+        <DetailsProject project={project} isLoading={isLoading} error={error} />
         <div className="flex-col flex gap-12 w-full">
           <DescriptionProjet />
           <ListEvaluation />
         </div>
       </div>
       <div className="md:hidden flex-col flex gap-12 w-full">
-        <DetailsProject />
+        <DetailsProject project={project} isLoading={isLoading} error={error} />
         <DescriptionProjet />
         <ListEvaluation />
       </div>
