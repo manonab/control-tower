@@ -14,7 +14,7 @@ export const DetailProject: React.FC = () => {
     return <p>Erreur lors du chargement des données du projet</p>;
   }
   return (
-    <div className="container flex-col flex gap-6 md:pb-10 md:my-20 mx-auto">
+    <div className="container flex-col justify-center flex gap-6 md:pb-10 mt-20 mx-10">
       <p className="md:text-[50px] text-[30px] text-center md:text-left font-black uppercase">{project?.name}</p>
       <div className="hidden md:flex gap-12">
         <DetailsProject project={project} isLoading={isLoading} error={error} />

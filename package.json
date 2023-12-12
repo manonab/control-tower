@@ -8,8 +8,6 @@
         "build": "remix build",
         "dev": "remix dev --manual",
         "start": "remix-serve ./build/index.js",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
         "lint": "eslint .",
         "lint:fix": "eslint --fix ."
     },

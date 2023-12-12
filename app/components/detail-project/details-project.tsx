@@ -39,7 +39,7 @@ export const DetailsProject: React.FC<ProjectProps> = ({ project, isLoading, err
   };
 
   return (
-    <div className="flex-col flex gap-6 min-w-[350px] bg-white border border-lightGray shadow-lg rounded-lg rounded p-5 max-h-[350px]">
+    <div className="flex-col flex gap-6 w-[350px] bg-white border border-lightGray shadow-lg rounded-lg rounded p-5 max-h-[350px]">
       <p className="font-bold text-center">Informations</p>
       <div className="flex md:gap-12 gap-[90px] justify-center md:justify-start items-center">
         <p className="font-base">Manager</p>

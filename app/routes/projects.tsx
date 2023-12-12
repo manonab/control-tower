@@ -3,13 +3,13 @@ import { DetailProject } from '~/components/detail-project';
 
 export default function Projects() {
   return (
-    <div className="flex gap-4">
-      <div className="bg-lightGreen h-screen w-[120px] flex-col items-center justify-around flex gap-12">
-        <div className="mx-auto my-10">
-          <Home sx={{ fontSize: '60px', color: "white" }} />
+    <div className="flex items-center">
+      <div className="bg-lightGreen h-full w-[100px] flex-col items-center justify-around flex gap-12">
+        <div className="mx-auto hover:cursor-pointer">
+          <Home sx={{ fontSize: '40px', color: "white" }} />
         </div>
         <div>
-          <Settings sx={{ fontSize: '60px', color: "white" }} />
+          <Settings sx={{ fontSize: '40px', color: "white" }} />
         </div>
       </div>
       <div className="flex flex-col gap-6 h-screen w-screen bg-mainColor">

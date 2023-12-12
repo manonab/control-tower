@@ -31,7 +31,7 @@ export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, optio
     return (
       <Select
         isDisabled={!isClickable}
-        defaultValue={project?.status && { label: translateStatus(project.status), value: project.status }}
+        defaultValue={project?.status ? { label: translateStatus(project.status), value: project.status } : null}
         value={selectedValue}
         className={`rounded-sm w-[150px] ${!isClickable ? "text-disabled cursor-not-allowed" : "cursor-pointer"} text-xs`}
         options={formattedOptions}
@@ -43,7 +43,7 @@ export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, optio
     <Select
       isDisabled={!isClickable}
       value={selectedValue}
-      defaultValue={project?.risk_model_id && { label: translateRiskModelId(project.risk_model_id), value: project.risk_model_id }}
+      defaultValue={project?.risk_model_id ? { value: translateRiskModelId(project.risk_model_id) } : null}
       className={`rounded-sm cursor-pointer text-xs my-custom-select w-[150px]`}
       options={options as Option[]}
       onChange={(selectedOption) => handleDropdownChange(selectedOption)}
