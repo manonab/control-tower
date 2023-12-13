@@ -23,7 +23,7 @@ export const DetailProject: React.FC = () => {
           <ListEvaluation />
         </div>
       </div>
-      <div className="md:hidden flex-col flex gap-12 w-full">
+      <div className="md:hidden flex-col flex gap-6 w-full">
         <DetailsProject project={project} isLoading={isLoading} error={error} />
         <DescriptionProjet />
         <ListEvaluation />

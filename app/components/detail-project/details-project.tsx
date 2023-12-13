@@ -1,6 +1,6 @@
 import React from 'react';
 import { statusOptions } from "~/model/project";
-import type { Project } from "~/model/project";
+import type { Evaluation, Project } from "~/model/project";
 import { modelJson } from "~/utils/content";
 import type { Option } from "~/utils/content";
 import dayjs from "dayjs";
@@ -16,7 +16,7 @@ interface ProjectProps {
   error: string;
 }
 export const DetailsProject: React.FC<ProjectProps> = ({ project, isLoading, error }: ProjectProps) => {
-  const { data: evaluations } = useGetEvaluations();
+  const { data: evaluations }: Evaluation[] = useGetEvaluations();
   const { updateProject } = useUpdateProject();
 
   const riskModels = modelJson || [];
@@ -39,7 +39,7 @@ export const DetailsProject: React.FC<ProjectProps> = ({ project, isLoading, err
   };
 
   return (
-    <div className="flex-col flex gap-6 w-[350px] bg-white border border-lightGray shadow-lg rounded-lg rounded p-5 max-h-[350px]">
+    <div className="flex-col flex gap-6 md:w-[350px] bg-white border border-lightGray shadow-lg rounded-lg rounded w-[400px] p-5 md:max-h-[350px] h-[400px]">
       <p className="font-bold text-center">Informations</p>
       <div className="flex md:gap-12 gap-[90px] justify-center md:justify-start items-center">
         <p className="font-base">Manager</p>
@@ -62,7 +62,7 @@ export const DetailsProject: React.FC<ProjectProps> = ({ project, isLoading, err
           isClickable={!project?.risk_model_id || project?.status === "in_progress"}
           options={riskModels.map((model) => ({ label: model.name, value: model.id.toString() }))} />
       </div>
-      <div className="flex md:gap-20 gap-32 items-center justify-center md:justify-start">
+      <div className="flex gap-20 items-center justify-center md:justify-start">
         <p className="font-base">Date</p>
         <div className="flex justify-around w-[200px] items-center">
           <p className="font-light">{dayjs(project?.start_date).format('DD-MM-YYYY')}</p>
@@ -72,7 +72,7 @@ export const DetailsProject: React.FC<ProjectProps> = ({ project, isLoading, err
       </div>
       <Button
         title="Nouvelle évaluation"
-        isClickable={!evaluations || evaluations.length > 0 || project?.risk_model_id === null}
+        isClickable={project?.risk_model_id === null}
       />
     </div>
   )

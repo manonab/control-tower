@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { GroupBase } from "react-select";
 import Select from "react-select";
 import type { Project } from "~/model/project";
@@ -16,6 +16,16 @@ interface Dropdown {
 export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, options, isTag, onChange }: Dropdown) => {
   const [selectedValue, setSelectedValue] = useState<Option | null>(null);
 
+  useEffect(() => {
+    if (isTag && project?.status) {
+      setSelectedValue({ label: translateStatus(project.status), value: project.status });
+    } else if (project?.risk_model_id) {
+      setSelectedValue({ value: translateRiskModelId(project.risk_model_id) });
+    } else {
+      setSelectedValue(null);
+    }
+  }, [project, isTag]);
+
   const handleDropdownChange = (selectedOption: Option | null) => {
     setSelectedValue(selectedOption);
     onChange(selectedOption);
@@ -31,7 +41,6 @@ export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, optio
     return (
       <Select
         isDisabled={!isClickable}
-        defaultValue={project?.status ? { label: translateStatus(project.status), value: project.status } : null}
         value={selectedValue}
         className={`rounded-sm w-[150px] ${!isClickable ? "text-disabled cursor-not-allowed" : "cursor-pointer"} text-xs`}
         options={formattedOptions}
@@ -39,11 +48,11 @@ export const CustomDropDown: React.FC<Dropdown> = ({ project, isClickable, optio
       />
     );
   }
+
   return (
     <Select
-      isDisabled={!isClickable}
+      isDisabled={isClickable}
       value={selectedValue}
-      defaultValue={project?.risk_model_id ? { value: translateRiskModelId(project.risk_model_id) } : null}
       className={`rounded-sm cursor-pointer text-xs my-custom-select w-[150px]`}
       options={options as Option[]}
       onChange={(selectedOption) => handleDropdownChange(selectedOption)}
