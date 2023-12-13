@@ -13,7 +13,7 @@ Dans cette mission, j'ai été chargé de développer une interface de détail d
 - Évaluations Validées
   - Affichage des évaluations reliées au projet dans un tableau.
   - Création simplifiée d'une nouvelle évaluation avec un bouton dédié, respectant les propriétés spécifiées (date de création, date de -        validation, nom de l'évaluation).
-- Endpoints et Superpuissances Techniques
+- Endpoints :
   - Utilisation des endpoints et test avec wiremock.
 
 
